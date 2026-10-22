@@ -32,6 +32,7 @@ assert not (ROOT/'prompts.json').exists()
 assert not (ROOT/'prompts_output').exists()
 report={'numeric_runs':count,'schema':'PASS: numeric run fields only; no original prompt titles or content','python_syntax':'PASS','local_page_links':'PASS','inference_rerun':False,'scope':'Static validation, not a live model benchmark.'}
 (ROOT/'data/validation.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
-files={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(ROOT.rglob('*')) if p.is_file() and '.git' not in p.parts and '__pycache__' not in p.parts and p.name!='manifest.json'}
+# GitHub stores UTF-8/LF text; normalize Windows CRLF before hashing.
+files={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_text(encoding='utf-8').encode('utf-8')).hexdigest() for p in sorted(ROOT.rglob('*')) if p.is_file() and '.git' not in p.parts and '__pycache__' not in p.parts and p.name!='manifest.json'}
 (ROOT/'data/manifest.json').write_text(json.dumps(files,indent=2),encoding='utf-8')
 print(json.dumps(report))
