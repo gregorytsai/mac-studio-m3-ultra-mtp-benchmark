@@ -1,0 +1,124 @@
+{
+  "models": [
+    {
+      "id": "gemma-4-e4b",
+      "display_name": "Gemma 4 E4B (UD-Q4_K_XL)",
+      "model_path": "/path/to/models/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf",
+      "mmproj_path": "/path/to/models/gemma-4-E4B-mmproj-F16.gguf",
+      "ctx_size": 16384,
+      "mtp_options": [
+        {
+          "slug": "mtp_q4",
+          "label": "MTP Q4",
+          "path": "/path/to/models/mtp-gemma-4-E4B-it.gguf",
+          "quant": "Q4 (94 MB)"
+        },
+        {
+          "slug": "mtp_q8",
+          "label": "MTP Q8",
+          "path": "/path/to/models/mtp-gemma-4-E4B-it-Q8_0.gguf",
+          "quant": "Q8_0 (94 MB)"
+        }
+      ]
+    },
+    {
+      "id": "gemma-4-12b-qat",
+      "display_name": "Gemma 4 12B QAT (UD-Q4_K_XL)",
+      "model_path": "/path/to/models/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf",
+      "mmproj_path": "/path/to/models/mmproj-F16.gguf",
+      "ctx_size": 16384,
+      "mtp_options": [
+        {
+          "slug": "mtp_q4",
+          "label": "MTP Q4",
+          "path": "/path/to/models/mtp-gemma-4-12B-it.gguf",
+          "quant": "Q4 (242 MB)"
+        },
+        {
+          "slug": "mtp_q8",
+          "label": "MTP Q8",
+          "path": "/path/to/models/mtp-gemma-4-12B-it-Q8_0.gguf",
+          "quant": "Q8_0 (444 MB)"
+        }
+      ]
+    },
+    {
+      "id": "gemma-4-26b-qat",
+      "display_name": "Gemma 4 26B QAT (UD-Q4_K_XL)",
+      "model_path": "/path/to/models/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf",
+      "mmproj_path": "/path/to/models/mmproj-F16.gguf",
+      "ctx_size": 16384,
+      "mtp_options": [
+        {
+          "slug": "mtp_q4",
+          "label": "MTP Q4",
+          "path": "/path/to/models/mtp-gemma-4-26B-A4B-it.gguf",
+          "quant": "Q4 (240 MB)"
+        },
+        {
+          "slug": "mtp_q8",
+          "label": "MTP Q8",
+          "path": "/path/to/models/mtp-gemma-4-26B-A4B-it-Q8_0.gguf",
+          "quant": "Q8_0 (440 MB)"
+        }
+      ]
+    },
+    {
+      "id": "gemma-4-31b-qat",
+      "display_name": "Gemma 4 31B QAT (UD-Q4_K_XL)",
+      "model_path": "/path/to/models/gemma-4-31B-it-qat-UD-Q4_K_XL.gguf",
+      "mmproj_path": "/path/to/models/mmproj-F16.gguf",
+      "ctx_size": 16384,
+      "mtp_options": [
+        {
+          "slug": "mtp_q4",
+          "label": "MTP Q4",
+          "path": "/path/to/models/mtp-gemma-4-31B-it.gguf",
+          "quant": "Q4 (267 MB)"
+        },
+        {
+          "slug": "mtp_q8",
+          "label": "MTP Q8",
+          "path": "/path/to/models/mtp-gemma-4-31B-it-Q8_0.gguf",
+          "quant": "Q8_0 (491 MB)"
+        }
+      ]
+    },
+    {
+      "id": "qwen3.8-27b",
+      "display_name": "Qwen 3.8 27B (UD-Q8_K_XL)",
+      "model_path": "/path/to/models/Qwen3.8-27B-UD-Q8_K_XL.gguf",
+      "mmproj_path": "/path/to/models/mmproj-F16.gguf",
+      "ctx_size": 16384,
+      "mtp_options": [
+        {
+          "slug": "mtp_q4",
+          "label": "MTP Q4_0",
+          "path": "/path/to/models/mtp-Qwen3.8-27B-Q4_0.gguf",
+          "quant": "Q4_0 (1.3 GB)"
+        }
+      ]
+    },
+    {
+      "id": "qwen3.8-flash-next",
+      "display_name": "Qwen 3.8 Flash Next (UD-Q6_K_XL 158GB)",
+      "model_path": "/path/to/models/Qwen3.8-Flash-Next-UD-Q6_K_XL-00001-of-00006.gguf",
+      "mmproj_path": "/path/to/models/mmproj-F16.gguf",
+      "ctx_size": 16384,
+      "mtp_options": [
+        {
+          "slug": "mtp_q4",
+          "label": "MTP Q4",
+          "path": "/path/to/models/mtp-Qwen3.8-Flash-Next-Q4_K_M.gguf",
+          "quant": "Q4_K_M (2.6 GB)"
+        },
+        {
+          "slug": "mtp_q8",
+          "label": "MTP Q8",
+          "path": "/path/to/models/mtp-Qwen3.8-Flash-Next-Q8_0.gguf",
+          "quant": "Q8_0 (3.9 GB)"
+        }
+      ]
+    }
+  ]
+}

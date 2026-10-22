@@ -1,0 +1,8 @@
+local_results/
+**/local_results/
+**/__pycache__/
+*.pyc
+prompts.json
+prompts_output/
+.env*
+.DS_Store

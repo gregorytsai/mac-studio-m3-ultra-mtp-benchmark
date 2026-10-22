@@ -1,0 +1,577 @@
+{
+  "source_sha256": "bc147ea87528db6b20cefd80d1bdfaf46281d355e35840580d6733e91a0292e7",
+  "run_count": 1250,
+  "cell_count": 250,
+  "max_summary_error": 0,
+  "main_mtp_q4": 1.4068822987686136,
+  "main_mtp_q4_warm": 1.4078069850562662,
+  "main_mtp_complete_q4q8": 1.3498421114258812,
+  "by_model": [
+    {
+      "model": "Gemma E4B",
+      "mtp_q4": 1.3093087329713262,
+      "q8_over_q4": 1.0288239169458129
+    },
+    {
+      "model": "Gemma 12B",
+      "mtp_q4": 1.5639870739194004,
+      "q8_over_q4": 0.9645763098297033
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "mtp_q4": 1.2231477643774866,
+      "q8_over_q4": 0.9693138207753063
+    },
+    {
+      "model": "Gemma 31B",
+      "mtp_q4": 1.5944647550065,
+      "q8_over_q4": 0.9783560898118753
+    },
+    {
+      "model": "Qwen 27B",
+      "mtp_q4": 1.6762499016703827
+    },
+    {
+      "model": "Qwen Flash Next",
+      "mtp_q4": 1.1583472009668592,
+      "q8_over_q4": 0.9971834756005112
+    }
+  ],
+  "q8_over_q4": 0.9873765640754653,
+  "n_effects": [
+    {
+      "n": 1,
+      "all": 1.2813091982212685,
+      "counseling": 1.242072014234453,
+      "agent": 1.321785888927156,
+      "moe": 1.2002690577704387,
+      "dense": 1.3238586291605055,
+      "task_interaction_vs_n1": 1.0,
+      "moe_interaction_vs_n1": 1.0
+    },
+    {
+      "n": 2,
+      "all": 1.4475173995085866,
+      "counseling": 1.358741325515486,
+      "agent": 1.542093835325994,
+      "moe": 1.2483435545956887,
+      "dense": 1.5587218649076906,
+      "task_interaction_vs_n1": 1.066497107709534,
+      "moe_interaction_vs_n1": 0.8833412185133884
+    },
+    {
+      "n": 3,
+      "all": 1.4601086571144861,
+      "counseling": 1.3423136841104293,
+      "agent": 1.5882407486544554,
+      "moe": 1.189883791756309,
+      "dense": 1.6174299829667982,
+      "task_interaction_vs_n1": 1.1118545614966286,
+      "moe_interaction_vs_n1": 0.8114131830037559
+    },
+    {
+      "n": 4,
+      "all": 1.4466655819541128,
+      "counseling": 1.2928027839216298,
+      "agent": 1.6188403459823462,
+      "moe": 1.1259473328219722,
+      "dense": 1.639808697224756,
+      "task_interaction_vs_n1": 1.1766773844914504,
+      "moe_interaction_vs_n1": 0.7573347613068453
+    }
+  ],
+  "best": [
+    {
+      "model": "Gemma E4B",
+      "category": "counseling",
+      "best_q4": "mtp_q4_n2",
+      "gain": 1.2361112394667275,
+      "runner_gap": 1.0519008827772713,
+      "best_joint": "mtp_q8_n2",
+      "joint_gain": 1.282527850330009,
+      "warm_best_q4": "mtp_q4_n2"
+    },
+    {
+      "model": "Gemma E4B",
+      "category": "agent",
+      "best_q4": "mtp_q4_n4",
+      "gain": 1.5664473512016497,
+      "runner_gap": 1.0263196878124066,
+      "best_joint": "mtp_q8_n4",
+      "joint_gain": 1.586801099122393,
+      "warm_best_q4": "mtp_q4_n4"
+    },
+    {
+      "model": "Gemma 12B",
+      "category": "counseling",
+      "best_q4": "mtp_q4_n3",
+      "gain": 1.5042849323027994,
+      "runner_gap": 1.0118269130473883,
+      "best_joint": "mtp_q4_n3",
+      "joint_gain": 1.5042849323027994,
+      "warm_best_q4": "mtp_q4_n3"
+    },
+    {
+      "model": "Gemma 12B",
+      "category": "agent",
+      "best_q4": "mtp_q4_n4",
+      "gain": 1.932392396039345,
+      "runner_gap": 1.06280112268263,
+      "best_joint": "mtp_q4_n4",
+      "joint_gain": 1.932392396039345,
+      "warm_best_q4": "mtp_q4_n4"
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "category": "counseling",
+      "best_q4": "mtp_q4_n2",
+      "gain": 1.1914317784422253,
+      "runner_gap": 1.0417654088949622,
+      "best_joint": "mtp_q4_n2",
+      "joint_gain": 1.1914317784422253,
+      "warm_best_q4": "mtp_q4_n2"
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "category": "agent",
+      "best_q4": "mtp_q4_n2",
+      "gain": 1.3945102042315722,
+      "runner_gap": 1.0131719244622779,
+      "best_joint": "mtp_q4_n2",
+      "joint_gain": 1.3945102042315722,
+      "warm_best_q4": "mtp_q4_n2"
+    },
+    {
+      "model": "Gemma 31B",
+      "category": "counseling",
+      "best_q4": "mtp_q4_n4",
+      "gain": 1.5778910888276436,
+      "runner_gap": 1.0051070650225755,
+      "best_joint": "mtp_q4_n4",
+      "joint_gain": 1.5778910888276436,
+      "warm_best_q4": "mtp_q4_n4"
+    },
+    {
+      "model": "Gemma 31B",
+      "category": "agent",
+      "best_q4": "mtp_q4_n4",
+      "gain": 2.048606827322293,
+      "runner_gap": 1.077301246826483,
+      "best_joint": "mtp_q4_n4",
+      "joint_gain": 2.048606827322293,
+      "warm_best_q4": "mtp_q4_n4"
+    },
+    {
+      "model": "Qwen 27B",
+      "category": "counseling",
+      "best_q4": "mtp_q4_n3",
+      "gain": 1.7004692268906245,
+      "runner_gap": 1.0091493715464437,
+      "best_joint": "mtp_q4_n3",
+      "joint_gain": 1.7004692268906245,
+      "warm_best_q4": "mtp_q4_n3"
+    },
+    {
+      "model": "Qwen 27B",
+      "category": "agent",
+      "best_q4": "mtp_q4_n4",
+      "gain": 1.910981105839778,
+      "runner_gap": 1.0160070090144562,
+      "best_joint": "mtp_q4_n4",
+      "joint_gain": 1.910981105839778,
+      "warm_best_q4": "mtp_q4_n4"
+    },
+    {
+      "model": "Qwen Flash Next",
+      "category": "counseling",
+      "best_q4": "mtp_q4_n1",
+      "gain": 1.204470017151117,
+      "runner_gap": 1.0164887356154693,
+      "best_joint": "mtp_q4_n1",
+      "joint_gain": 1.204470017151117,
+      "warm_best_q4": "mtp_q4_n1"
+    },
+    {
+      "model": "Qwen Flash Next",
+      "category": "agent",
+      "best_q4": "mtp_q4_n2",
+      "gain": 1.2335370367422223,
+      "runner_gap": 1.014785635375446,
+      "best_joint": "mtp_q4_n2",
+      "joint_gain": 1.2335370367422223,
+      "warm_best_q4": "mtp_q4_n2"
+    }
+  ],
+  "model_task_n": [
+    {
+      "model": "Gemma E4B",
+      "category": "counseling",
+      "ratios": [
+        1.134132561004359,
+        1.2361112394667275,
+        1.175121401365399,
+        1.145678692760979
+      ]
+    },
+    {
+      "model": "Gemma E4B",
+      "category": "agent",
+      "ratios": [
+        1.2682585046986796,
+        1.5090820092245552,
+        1.5262762371250245,
+        1.5664473512016497
+      ]
+    },
+    {
+      "model": "Gemma 12B",
+      "category": "counseling",
+      "ratios": [
+        1.2888681894352136,
+        1.4867018389264244,
+        1.5042849323027994,
+        1.4483254758814978
+      ]
+    },
+    {
+      "model": "Gemma 12B",
+      "category": "agent",
+      "ratios": [
+        1.3914308642764563,
+        1.7540272989391499,
+        1.8182069578189461,
+        1.932392396039345
+      ]
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "category": "counseling",
+      "ratios": [
+        1.1436660962913134,
+        1.1914317784422253,
+        1.1248456089062844,
+        1.042779707615164
+      ]
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "category": "agent",
+      "ratios": [
+        1.23948512329709,
+        1.3945102042315722,
+        1.3763806226388307,
+        1.3175767634748068
+      ]
+    },
+    {
+      "model": "Gemma 31B",
+      "category": "counseling",
+      "ratios": [
+        1.267059975976162,
+        1.493499599587347,
+        1.5698736420604138,
+        1.5778910888276436
+      ]
+    },
+    {
+      "model": "Gemma 31B",
+      "category": "agent",
+      "ratios": [
+        1.3522710304020382,
+        1.6917320323944773,
+        1.9016100031045953,
+        2.048606827322293
+      ]
+    },
+    {
+      "model": "Qwen 27B",
+      "category": "counseling",
+      "ratios": [
+        1.439182675086841,
+        1.6239459090678374,
+        1.7004692268906245,
+        1.685052059522949
+      ]
+    },
+    {
+      "model": "Qwen 27B",
+      "category": "agent",
+      "ratios": [
+        1.4832498240895582,
+        1.7458629696288204,
+        1.8808739397314413,
+        1.910981105839778
+      ]
+    },
+    {
+      "model": "Qwen Flash Next",
+      "category": "counseling",
+      "ratios": [
+        1.204470017151117,
+        1.184931986896862,
+        1.1020083173626183,
+        1.0148030131788266
+      ]
+    },
+    {
+      "model": "Qwen Flash Next",
+      "category": "agent",
+      "ratios": [
+        1.2155641484675168,
+        1.2335370367422223,
+        1.1749025746836443,
+        1.1527153051015608
+      ]
+    }
+  ],
+  "context": [
+    {
+      "model": "Gemma E4B",
+      "prompt": "prompt_1",
+      "tokens": 366,
+      "speed": 100.81320235278253,
+      "prefill_ms": 332.658,
+      "cached": 0
+    },
+    {
+      "model": "Gemma E4B",
+      "prompt": "prompt_2",
+      "tokens": 1707,
+      "speed": 100.08787712943162,
+      "prefill_ms": 788.663,
+      "cached": 0
+    },
+    {
+      "model": "Gemma E4B",
+      "prompt": "prompt_3",
+      "tokens": 8235,
+      "speed": 96.31319976951,
+      "prefill_ms": 3848.845,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 12B",
+      "prompt": "prompt_1",
+      "tokens": 366,
+      "speed": 64.82834690734477,
+      "prefill_ms": 553.367,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 12B",
+      "prompt": "prompt_2",
+      "tokens": 1707,
+      "speed": 64.55236345562916,
+      "prefill_ms": 1795.321,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 12B",
+      "prompt": "prompt_3",
+      "tokens": 8235,
+      "speed": 61.84016900740916,
+      "prefill_ms": 9313.87,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "prompt": "prompt_1",
+      "tokens": 366,
+      "speed": 118.55520752730364,
+      "prefill_ms": 189.04,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "prompt": "prompt_2",
+      "tokens": 1707,
+      "speed": 117.8355551133611,
+      "prefill_ms": 668.833,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "prompt": "prompt_3",
+      "tokens": 8235,
+      "speed": 111.60651818817195,
+      "prefill_ms": 3591.095,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 31B",
+      "prompt": "prompt_1",
+      "tokens": 366,
+      "speed": 31.287905892214116,
+      "prefill_ms": 1405.383,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 31B",
+      "prompt": "prompt_2",
+      "tokens": 1707,
+      "speed": 30.96041387009026,
+      "prefill_ms": 4739.698,
+      "cached": 0
+    },
+    {
+      "model": "Gemma 31B",
+      "prompt": "prompt_3",
+      "tokens": 8235,
+      "speed": 29.574143400338183,
+      "prefill_ms": 24427.406,
+      "cached": 0
+    },
+    {
+      "model": "Qwen 27B",
+      "prompt": "prompt_1",
+      "tokens": 355,
+      "speed": 21.528382542422186,
+      "prefill_ms": 1277.022,
+      "cached": 0
+    },
+    {
+      "model": "Qwen 27B",
+      "prompt": "prompt_2",
+      "tokens": 1588,
+      "speed": 21.478034839308208,
+      "prefill_ms": 3909.037,
+      "cached": 0
+    },
+    {
+      "model": "Qwen 27B",
+      "prompt": "prompt_3",
+      "tokens": 6410,
+      "speed": 21.09554993735632,
+      "prefill_ms": 15249.909,
+      "cached": 0
+    },
+    {
+      "model": "Qwen Flash Next",
+      "prompt": "prompt_1",
+      "tokens": 355,
+      "speed": 40.078743556262886,
+      "prefill_ms": 668.154,
+      "cached": 0
+    },
+    {
+      "model": "Qwen Flash Next",
+      "prompt": "prompt_2",
+      "tokens": 1588,
+      "speed": 39.93812222036362,
+      "prefill_ms": 1798.795,
+      "cached": 0
+    },
+    {
+      "model": "Qwen Flash Next",
+      "prompt": "prompt_3",
+      "tokens": 6410,
+      "speed": 39.37155977339557,
+      "prefill_ms": 6892.561,
+      "cached": 0
+    }
+  ],
+  "threeway_descriptive": [
+    {
+      "model": "Gemma E4B",
+      "interaction_n_vs_1": [
+        1.0,
+        1.0917201400788976,
+        1.1614658443710335,
+        1.2226692853319414
+      ]
+    },
+    {
+      "model": "Gemma 12B",
+      "interaction_n_vs_1": [
+        1.0,
+        1.092846943926402,
+        1.1195927627483675,
+        1.2358791981474397
+      ]
+    },
+    {
+      "model": "Gemma 26B A4B",
+      "interaction_n_vs_1": [
+        1.0,
+        1.0799669002344479,
+        1.1290250052719806,
+        1.1658462604165625
+      ]
+    },
+    {
+      "model": "Gemma 31B",
+      "interaction_n_vs_1": [
+        1.0,
+        1.0613530943557852,
+        1.1349851617132345,
+        1.2165081436530962
+      ]
+    },
+    {
+      "model": "Qwen 27B",
+      "interaction_n_vs_1": [
+        1.0,
+        1.0431342636493022,
+        1.0732293204048207,
+        1.100385064423084
+      ]
+    },
+    {
+      "model": "Qwen Flash Next",
+      "interaction_n_vs_1": [
+        1.0,
+        1.0315181674235279,
+        1.0564163014158459,
+        1.1255334913893398
+      ]
+    }
+  ],
+  "diagnostics": {
+    "first_runs_nonzero_cache": 14,
+    "completion_min": 1022,
+    "completion_max": 4096,
+    "completion_at_4096": 181,
+    "median_cell_cv_percent": 1.6766672082060043,
+    "max_cell_cv_percent": 14.022020551977352
+  },
+  "secondary": {
+    "wall_time_s_mean": 0.7129863967446185,
+    "completion_tokens_mean": 0.9984956639873167
+  },
+  "acceptance_by_n": [
+    {
+      "n": 1,
+      "mean_percent": 70.20496112980805
+    },
+    {
+      "n": 2,
+      "mean_percent": 58.03508560799233
+    },
+    {
+      "n": 3,
+      "mean_percent": 48.647578016631364
+    },
+    {
+      "n": 4,
+      "mean_percent": 41.88243651961655
+    }
+  ],
+  "n_complete_q_average": [
+    {
+      "n": 1,
+      "gain": 1.2420538660196947
+    },
+    {
+      "n": 2,
+      "gain": 1.3963684422077178
+    },
+    {
+      "n": 3,
+      "gain": 1.3944514691199046
+    },
+    {
+      "n": 4,
+      "gain": 1.37273918533419
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "numeric_runs": 1250,
+  "schema": "PASS: numeric run fields only; no original prompt titles or content",
+  "python_syntax": "PASS",
+  "local_page_links": "PASS",
+  "inference_rerun": false,
+  "scope": "Static validation, not a live model benchmark."
+}

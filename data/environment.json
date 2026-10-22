@@ -1,0 +1,34 @@
+{
+  "host": {
+    "model_name": "Mac Studio",
+    "chip": "Apple M3 Ultra",
+    "total_cores": 32,
+    "performance_cores": 24,
+    "efficiency_cores": 8,
+    "memory_gb": 256,
+    "memory_type": "Unified Memory",
+    "os_name": "macOS",
+    "kernel": "Darwin 25.6.0 arm64"
+  },
+  "runtime": {
+    "framework": "llama.cpp",
+    "version": "v0.7.0 (commit 620d2225c)",
+    "backend": "Metal",
+    "metal_peer_memory": true,
+    "kv_cache_type": "f16"
+  },
+  "benchmark_protocol": {
+    "iterations_per_prompt": 5,
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "metrics_tracked": [
+      "prefill_tokens_per_second",
+      "prefill_time_ms",
+      "generation_tokens_per_second",
+      "generation_time_ms",
+      "draft_acceptance_rate_percent",
+      "wall_time_seconds"
+    ],
+    "context_window": 16384
+  }
+}

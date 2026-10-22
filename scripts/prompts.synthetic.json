@@ -1,0 +1,37 @@
+{
+  "prompt_1": {
+    "title": "合成示例 1",
+    "category": "counseling",
+    "category_name": "counseling",
+    "description": "公開合成示例；不是原測試題目，長度與結果不可視為重現。",
+    "content": "這是完全虛構的練習情境：一位成年角色因搬家感到不安，請提出一般性的支持與溝通建議。"
+  },
+  "prompt_2": {
+    "title": "合成示例 2",
+    "category": "counseling",
+    "category_name": "counseling",
+    "description": "公開合成示例；不是原測試題目，長度與結果不可視為重現。",
+    "content": "這是完全虛構的練習情境：請寫一封回覆信，回應成年角色對新工作的擔憂，使用溫暖自然的繁體中文。"
+  },
+  "prompt_3": {
+    "title": "合成示例 3",
+    "category": "counseling",
+    "category_name": "counseling",
+    "description": "公開合成示例；不是原測試題目，長度與結果不可視為重現。",
+    "content": "這是完全虛構的練習情境：請整理一段虛構成長故事的目標、進展與後續方向，不使用任何真實個案資料。"
+  },
+  "prompt_4": {
+    "title": "合成示例 4",
+    "category": "agent",
+    "category_name": "agent",
+    "description": "公開合成示例；不是原測試題目，長度與結果不可視為重現。",
+    "content": "請用 Python 撰寫具備並行限制與指數退避的非同步重試佇列，包含簡單的模擬測試。"
+  },
+  "prompt_5": {
+    "title": "合成示例 5",
+    "category": "agent",
+    "category_name": "agent",
+    "description": "公開合成示例；不是原測試題目，長度與結果不可視為重現。",
+    "content": "請以完全虛構的 Linux 維運場景，說明服務無法啟動時的唯讀診斷流程。只產生說明，不執行命令。"
+  }
+}
