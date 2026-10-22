@@ -25,7 +25,7 @@ class Links(HTMLParser):
  def handle_starttag(self,tag,attrs):
   for key,value in attrs:
    if key in ['href','src'] and value and not urlsplit(value).scheme and not value.startswith('#'):
-    path=unquote(value.split('#')[0])
+    path=unquote(urlsplit(value).path)
     assert (ROOT/path).exists(),path
 for p in ROOT.glob('*.html'):Links().feed(p.read_text(encoding='utf-8'))
 assert not (ROOT/'prompts.json').exists()

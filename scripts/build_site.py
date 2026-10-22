@@ -1,5 +1,5 @@
 """Build the public static site from sanitized metrics. Standard library only."""
-import json, math, statistics as st, html
+import json, math, statistics as st, html, hashlib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 R=json.loads((ROOT/'data/analysis.json').read_text(encoding='utf-8'))
@@ -27,6 +27,11 @@ def chart(series,title,max_y=80):
 def page(file,title,body,extra=''):
  nav=''.join(f'<a href="{p}"'+(' aria-current="page"' if file==p else '')+f'>{t}</a>' for p,t in [('index.html','設定指南'),('analysis.html','技術與分析'),('resources.html','資料與程式碼')])
  text=f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{E(title)}｜Mac Studio MTP 實測</title><meta name="description" content="Mac Studio M3 Ultra 256GB MTP 實測：用圖表比較六個模型與 N=1–4，找出適合文字與 Agent 題目的設定。"><link rel="stylesheet" href="assets/style.css"></head><body><a class="skip" href="#main">跳到主要內容</a><header><nav aria-label="主要導覽"><a class="brand" href="index.html">MTP / FIELD NOTES</a><div class="links">{nav}<a href="{repo}">GitHub ↗</a></div></nav></header><main id="main">{body}</main><footer>Mac Studio M3 Ultra · 256GB · 單機效能紀錄<br>共同作者：gregorytsai · OpenAI Codex · Gemini 3.8 Flash<br>分析整理：2026-10-22。速度結果不代表內容品質；以自己的工作負載驗證設定。</footer>{extra}</body></html>'''
+ for asset in ['style.css','chart-data.js','explore.js']:
+  asset_path=ROOT/'assets'/asset
+  if asset_path.exists():
+   digest=hashlib.sha256(asset_path.read_text(encoding='utf-8').encode('utf-8')).hexdigest()[:10]
+   text=text.replace('assets/'+asset+'"','assets/'+asset+'?v='+digest+'"')
  (ROOT/file).write_text(text,encoding='utf-8')
 
 effects=R['n_effects']
@@ -38,7 +43,11 @@ for i,m in enumerate(R['by_model']):
  cards+=f'<article class="model-card"><div class="meta">{"MoE" if i in [2,5] else "非 MoE"} · 本次最快觀察值</div><h3>{E(m["model"])}</h3><p><b>主模型：{quants[i]}</b></p>'
  for row in b:
   q,n=row['best_joint'].split('_')[1:];name='輔導文字' if row['category']=='counseling' else 'Agent 題'
-  cards+=f'<div class="setting"><span>{name}</span><b>草稿 {q.upper()} · N={n[1:]}</b></div><p>相對不開 MTP，生成速度 {pct(row["joint_gain"])}。</p>'
+  model_data=list(RAW.values())[i]
+  selected=[p for p,z in model_data['variants']['no_mtp']['prompts'].items() if z['category']==row['category']]
+  speed=st.mean(st.mean(r['gen_speed_tps'] for r in model_data['variants'][row['best_joint']]['prompts'][p]['runs']) for p in selected)
+  baseline=st.mean(st.mean(r['gen_speed_tps'] for r in model_data['variants']['no_mtp']['prompts'][p]['runs']) for p in selected)
+  cards+=f'<div class="setting"><span>{name}</span><b>草稿 {q.upper()} · N={n[1:]}</b></div><p class="actual-speed"><strong>{speed:.1f} tokens/s</strong><br>不開 MTP：{baseline:.1f} tokens/s</p><p>相對不開 MTP，生成速度 {pct(row["joint_gain"])}。</p>'
  cards+='</article>'
 model_options=''.join(f'<option value="{i}">{E(x["model"])} · {quants[i]}</option>' for i,x in enumerate(R['by_model']))
 body=f'''<div class="hero"><div><div class="eyebrow">Local LLM / Practical benchmark</div><h1>Mac Studio M3 Ultra 256GB<br>MTP 實測與設定指南</h1><p class="lead">MTP 能讓模型更快輸出，但 N 調得越高，不一定越快。用這次六個模型的實測，找出適合你工作內容的起點。</p><div class="tags"><span class="tag">6 個模型</span><span class="tag">5 道題目</span><span class="tag">1,250 次執行</span><span class="tag">llama.cpp / Metal</span></div><a class="button" href="#choose">選我的模型，查看設定 ↓</a></div><aside class="hero-figure"><h3>同模型、同題目比較</h3><div class="big">+40.7<span style="font-size:30px">%</span></div><p>開啟 MTP 後的平均生成速度提升</p><div class="meter"><span>不開 MTP</span><i style="width:50%"></i><strong>1.00×</strong></div><div class="meter accent"><span>開啟 MTP</span><i style="width:70.35%"></i><strong>1.41×</strong></div><p>六模型共同的草稿 Q4 條件，N=1–4 等權重。<br>這是輸出速度，不是回答品質分數。</p></aside></div>
@@ -46,7 +55,7 @@ body=f'''<div class="hero"><div><div class="eyebrow">Local LLM / Practical bench
 <section><div class="section-head"><div><div class="eyebrow">01 / 先看懂設定</div><h2>MTP 是幫模型先打草稿</h2></div><p>主模型會檢查草稿，接受合適的部分。草稿猜得準，就可能一次前進更多；猜得不準，檢查與重算也會花時間。</p></div><div class="three"><div class="panel"><div class="step">MTP · 要不要先打草稿</div><h3>開啟後，多一道預測流程</h3><p>能否省時間，取決於預測帶來的收益是否超過額外成本。</p></div><div class="panel"><div class="step">N · 每次最多猜幾個 token</div><h3>從 1 到 4，逐步比較</h3><p>N 是本次設定的草稿長度上限，不是保證一次接受的數量。token 也不等於中文字數。</p></div><div class="panel"><div class="step">Q · 草稿模型的量化</div><h3>比較 Q4 與 Q8</h3><p>這裡的 Q 指草稿模型。Q8 通常需要更多記憶體，但不保證更快；主模型量化另有固定設定。</p></div></div></section>
 <section><div class="section-head"><div><div class="eyebrow">02 / 讀圖找方向</div><h2>文字工作先試 N=2，<br>Agent 題可以再往上試</h2></div><p>圖越高，代表相對不開 MTP 的速度提升越多。藍線在 N=2 達到最高，橘線則持續上升。各模型仍有差異，下一區可逐一查看。</p></div><div class="panel">{task_chart}<p class="caption">草稿固定 Q4；主模型：Gemma 4 為 UD-Q4_K_XL、Qwen 3.8 27B 為 UD-Q8_K_XL、Flash Next 為 UD-Q6_K_XL。六模型等權重；輔導 3 題、Agent 2 題。Agent 題為程式生成與終端模擬，不是完整自主 Agent 的成功率測試。</p><details><summary>查看圖表數值</summary>{table(['N','輔導文字題','Agent 題'],[[r['n'],pct(r['counseling']),pct(r['agent'])] for r in effects])}</details></div></section>
 <section id="choose"><div class="section-head"><div><div class="eyebrow">03 / 找到你的設定</div><h2>選模型，看看哪個 N 最適合先試</h2></div><p>比較的是同模型的相對加速。不同模型的 50% 提升，不代表實際 tokens/s 相同。</p></div><div class="panel"><div class="controls"><div><label for="model">模型</label><select id="model">{model_options}</select></div><div><label for="task">工作類型</label><select id="task"><option value="counseling">輔導文字工作</option><option value="agent">Agent 題</option></select></div></div><div id="recommend" class="recommend" aria-live="polite"></div><div id="model-chart"></div><div id="model-table"></div><noscript><p>互動圖表需要 JavaScript。下方的設定速查表仍可直接閱讀。</p></noscript></div><p class="caption">最佳值由這批資料選出，尚未在新題目驗證。差距很小時，可優先試較低 N，再測自己的內容。</p></section>
-<section><div class="eyebrow">04 / 設定速查</div><h2>六個模型的起始參考</h2><p>同時比較可用的 Q 與 N；Qwen 3.8 27B 只有 Q4 資料。這是本次最快觀察值，不是所有情境的固定答案。</p><div class="three">{cards}</div><div class="note">Gemma 4 31B 的輔導題：Q4 N=4 只比 N=3 快約 0.5%，兩者都值得試。若不想先逐一微調，可從 Q4 N=2 開始，再用自己的題目比較 N=3、4；E4B 則值得另外試 Q8。</div></section>
+<section><div class="eyebrow">04 / 設定速查</div><h2>六個模型的起始參考</h2><p>同時比較可用的 Q 與 N；Qwen 3.8 27B 只有 Q4 資料。這是本次最快觀察值，不是所有情境的固定答案。tokens/s 為類內各題的平均生成速度，不含 prefill；百分比則先在同題內比較後取幾何平均，因此不一定等於卡片上兩個速度直接相除。</p><div class="three">{cards}</div><div class="note">Gemma 4 31B 的輔導題：Q4 N=4 只比 N=3 快約 0.5%，兩者都值得試。若不想先逐一微調，可從 Q4 N=2 開始，再用自己的題目比較 N=3、4；E4B 則值得另外試 Q8。</div></section>
 <section class="two"><div class="panel"><div class="eyebrow">如何套用</div><h2>把 N 設在草稿長度上限</h2><p>在本次 llama.cpp 介面中，MTP 的關鍵參數如下。請換成與主模型相配的草稿檔案，並確認你的版本支援這些選項。</p><pre><code>--model-draft /path/to/draft.gguf
 --spec-type draft-mtp
 --spec-draft-n-max 2</code></pre><p class="small">將最後的 2 換成要測試的 N。其他執行參數與模型設定見技術頁。</p><a href="analysis.html#environment">查看完整測試條件 →</a></div><div class="panel"><div class="eyebrow">如何判斷</div><h2>在自己的工作上確認三件事</h2><ol><li>固定模型與題目，比較不開 MTP、N=2，再視結果增加 N。</li><li>看生成速度，也看總等待時間；輸出變長時，速度更快仍可能等更久。</li><li>檢查內容是否符合需求。這份測試沒有評分回答品質，不能替你判斷內容可用性。</li></ol><a href="resources.html">下載程式與公開數值 →</a></div></section>'''
