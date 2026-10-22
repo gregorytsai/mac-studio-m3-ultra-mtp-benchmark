@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 R=json.loads((ROOT/'data/analysis.json').read_text(encoding='utf-8'))
 RAW=json.loads((ROOT/'data/benchmark_metrics.json').read_text(encoding='utf-8'))
+META=json.loads((ROOT/'data/model_sources.json').read_text(encoding='utf-8'))
 E=html.escape
 repo='https://github.com/gregorytsai/mac-studio-m3-ultra-mtp-benchmark'
 pct=lambda x:f'{(x-1)*100:+.1f}%'
@@ -31,18 +32,19 @@ def page(file,title,body,extra=''):
 effects=R['n_effects']
 task_chart=chart([('輔導文字題',[(r['counseling']-1)*100 for r in effects]),('Agent 題',[(r['agent']-1)*100 for r in effects])],'N 對兩種任務的速度提升：輔導題 N2 最快，Agent 題 N4 最快')
 cards=''
+quants=[m['main_quant'] for m in META.values()]
 for i,m in enumerate(R['by_model']):
  b=[b for b in R['best'] if b['model']==m['model']]
- cards+=f'<article class="model-card"><div class="meta">{"MoE" if i in [2,5] else "非 MoE"} · 本次最快觀察值</div><h3>{E(m["model"])}</h3>'
+ cards+=f'<article class="model-card"><div class="meta">{"MoE" if i in [2,5] else "非 MoE"} · 本次最快觀察值</div><h3>{E(m["model"])}</h3><p><b>主模型：{quants[i]}</b></p>'
  for row in b:
   q,n=row['best_joint'].split('_')[1:];name='輔導文字' if row['category']=='counseling' else 'Agent 題'
-  cards+=f'<div class="setting"><span>{name}</span><b>{q.upper()} · N={n[1:]}</b></div><p>相對不開 MTP，生成速度 {pct(row["joint_gain"])}。</p>'
+  cards+=f'<div class="setting"><span>{name}</span><b>草稿 {q.upper()} · N={n[1:]}</b></div><p>相對不開 MTP，生成速度 {pct(row["joint_gain"])}。</p>'
  cards+='</article>'
-model_options=''.join(f'<option value="{i}">{E(x["model"])}</option>' for i,x in enumerate(R['by_model']))
-body=f'''<div class="hero"><div><div class="eyebrow">Local LLM / Practical benchmark</div><h1>Mac Studio M3 Ultra 256GB<br>MTP 實測與設定指南</h1><p class="lead">MTP 能讓模型更快輸出，但 N 調得越高，不一定越快。用這次六個模型的實測，找出適合你工作內容的起點。</p><div class="tags"><span class="tag">6 個模型</span><span class="tag">5 道題目</span><span class="tag">1,250 次執行</span><span class="tag">llama.cpp / Metal</span></div><a class="button" href="#choose">選我的模型，查看設定 ↓</a></div><aside class="hero-figure"><h3>同模型、同題目比較</h3><div class="big">+40.7<span style="font-size:30px">%</span></div><p>開啟 MTP 後的平均生成速度提升</p><div class="meter"><span>不開 MTP</span><i style="width:50%"></i><strong>1.00×</strong></div><div class="meter accent"><span>開啟 MTP</span><i style="width:70.35%"></i><strong>1.41×</strong></div><p>六模型共同的 Q4 條件，N=1–4 等權重。<br>這是輸出速度，不是回答品質分數。</p></aside></div>
+model_options=''.join(f'<option value="{i}">{E(x["model"])} · {quants[i]}</option>' for i,x in enumerate(R['by_model']))
+body=f'''<div class="hero"><div><div class="eyebrow">Local LLM / Practical benchmark</div><h1>Mac Studio M3 Ultra 256GB<br>MTP 實測與設定指南</h1><p class="lead">MTP 能讓模型更快輸出，但 N 調得越高，不一定越快。用這次六個模型的實測，找出適合你工作內容的起點。</p><div class="tags"><span class="tag">6 個模型</span><span class="tag">5 道題目</span><span class="tag">1,250 次執行</span><span class="tag">llama.cpp / Metal</span></div><a class="button" href="#choose">選我的模型，查看設定 ↓</a></div><aside class="hero-figure"><h3>同模型、同題目比較</h3><div class="big">+40.7<span style="font-size:30px">%</span></div><p>開啟 MTP 後的平均生成速度提升</p><div class="meter"><span>不開 MTP</span><i style="width:50%"></i><strong>1.00×</strong></div><div class="meter accent"><span>開啟 MTP</span><i style="width:70.35%"></i><strong>1.41×</strong></div><p>六模型共同的草稿 Q4 條件，N=1–4 等權重。<br>這是輸出速度，不是回答品質分數。</p></aside></div>
 <div class="keyline"><div><strong>先選工作，再選 N</strong><span class="small">文字題與 Agent 題的最佳值不同。</span></div><div><strong>Q8 不一定比較快</strong><span class="small">五模型平均比 Q4 慢約 1.3%。</span></div><div><strong>MoE 先試較低 N</strong><span class="small">本次兩個 MoE 模型以 N=1–2 較佳。</span></div></div>
 <section><div class="section-head"><div><div class="eyebrow">01 / 先看懂設定</div><h2>MTP 是幫模型先打草稿</h2></div><p>主模型會檢查草稿，接受合適的部分。草稿猜得準，就可能一次前進更多；猜得不準，檢查與重算也會花時間。</p></div><div class="three"><div class="panel"><div class="step">MTP · 要不要先打草稿</div><h3>開啟後，多一道預測流程</h3><p>能否省時間，取決於預測帶來的收益是否超過額外成本。</p></div><div class="panel"><div class="step">N · 每次最多猜幾個 token</div><h3>從 1 到 4，逐步比較</h3><p>N 是本次設定的草稿長度上限，不是保證一次接受的數量。token 也不等於中文字數。</p></div><div class="panel"><div class="step">Q · 草稿模型的量化</div><h3>比較 Q4 與 Q8</h3><p>這裡的 Q 指草稿模型。Q8 通常需要更多記憶體，但不保證更快；主模型量化另有固定設定。</p></div></div></section>
-<section><div class="section-head"><div><div class="eyebrow">02 / 讀圖找方向</div><h2>文字工作先試 N=2，<br>Agent 題可以再往上試</h2></div><p>圖越高，代表相對不開 MTP 的速度提升越多。藍線在 N=2 達到最高，橘線則持續上升。各模型仍有差異，下一區可逐一查看。</p></div><div class="panel">{task_chart}<p class="caption">固定 Q4，六模型等權重；輔導 3 題、Agent 2 題。Agent 題為程式生成與終端模擬，不是完整自主 Agent 的成功率測試。</p><details><summary>查看圖表數值</summary>{table(['N','輔導文字題','Agent 題'],[[r['n'],pct(r['counseling']),pct(r['agent'])] for r in effects])}</details></div></section>
+<section><div class="section-head"><div><div class="eyebrow">02 / 讀圖找方向</div><h2>文字工作先試 N=2，<br>Agent 題可以再往上試</h2></div><p>圖越高，代表相對不開 MTP 的速度提升越多。藍線在 N=2 達到最高，橘線則持續上升。各模型仍有差異，下一區可逐一查看。</p></div><div class="panel">{task_chart}<p class="caption">草稿固定 Q4；主模型：Gemma 4 為 UD-Q4_K_XL、Qwen 3.8 27B 為 UD-Q8_K_XL、Flash Next 為 UD-Q6_K_XL。六模型等權重；輔導 3 題、Agent 2 題。Agent 題為程式生成與終端模擬，不是完整自主 Agent 的成功率測試。</p><details><summary>查看圖表數值</summary>{table(['N','輔導文字題','Agent 題'],[[r['n'],pct(r['counseling']),pct(r['agent'])] for r in effects])}</details></div></section>
 <section id="choose"><div class="section-head"><div><div class="eyebrow">03 / 找到你的設定</div><h2>選模型，看看哪個 N 最適合先試</h2></div><p>比較的是同模型的相對加速。不同模型的 50% 提升，不代表實際 tokens/s 相同。</p></div><div class="panel"><div class="controls"><div><label for="model">模型</label><select id="model">{model_options}</select></div><div><label for="task">工作類型</label><select id="task"><option value="counseling">輔導文字工作</option><option value="agent">Agent 題</option></select></div></div><div id="recommend" class="recommend" aria-live="polite"></div><div id="model-chart"></div><div id="model-table"></div><noscript><p>互動圖表需要 JavaScript。下方的設定速查表仍可直接閱讀。</p></noscript></div><p class="caption">最佳值由這批資料選出，尚未在新題目驗證。差距很小時，可優先試較低 N，再測自己的內容。</p></section>
 <section><div class="eyebrow">04 / 設定速查</div><h2>六個模型的起始參考</h2><p>同時比較可用的 Q 與 N；Qwen 3.8 27B 只有 Q4 資料。這是本次最快觀察值，不是所有情境的固定答案。</p><div class="three">{cards}</div><div class="note">Gemma 4 31B 的輔導題：Q4 N=4 只比 N=3 快約 0.5%，兩者都值得試。若不想先逐一微調，可從 Q4 N=2 開始，再用自己的題目比較 N=3、4；E4B 則值得另外試 Q8。</div></section>
 <section class="two"><div class="panel"><div class="eyebrow">如何套用</div><h2>把 N 設在草稿長度上限</h2><p>在本次 llama.cpp 介面中，MTP 的關鍵參數如下。請換成與主模型相配的草稿檔案，並確認你的版本支援這些選項。</p><pre><code>--model-draft /path/to/draft.gguf
@@ -62,7 +64,7 @@ for idx,(mid,model) in enumerate(RAW.items()):
     speed=st.mean(r['gen_speed_tps'] for r in z['prompts'][p]['runs']);base=st.mean(r['gen_speed_tps'] for r in model['variants']['no_mtp']['prompts'][p]['runs'])
     ratios.append(speed/base);speeds.append(speed)
    options.append({'q':v.split('_')[1].upper(),'n':int(v[-1]),'gain':gm(ratios),'tps':st.mean(speeds)})
-  plot.append({'model':idx,'category':cat,'options':options})
+  plot.append({'model':idx,'label':R['by_model'][idx]['model'],'quant':META[mid]['main_quant'],'category':cat,'options':options})
 (ROOT/'assets/chart-data.js').write_text('window.BENCHMARK = '+json.dumps(plot,ensure_ascii=False)+';',encoding='utf-8')
 page('index.html','Mac Studio M3 Ultra 256GB｜MTP 實測與設定指南',body,'<script src="assets/chart-data.js"></script><script src="assets/explore.js"></script>')
 
@@ -75,6 +77,13 @@ runs per prompt = 5</code></pre><p>6 模型 × 各自可用設定 × 5 題，共
 <section><h2>數值如何計算</h2><ol><li>每個模型×設定×題目，先算 5 次生成速度的算術平均。</li><li>在同模型、同題目內，除以不開 MTP 的速度，得到加速比。</li><li>對加速比取幾何平均；模型等權重，兩類任務各佔 50%，類內題目等權重。</li></ol><p>共同設計使用 Q4。Q8/Q4 比較只用五個條件完整的模型，於同題目、同 N 配對。baseline 不具有 Q，不複製成兩份當作獨立觀察。</p><pre><code>加速比 = mean(speed_MTP) / mean(speed_baseline)
 速度提升 (%) = (加速比 - 1) × 100
 彙整 = exp(weighted_mean(log(加速比)))</code></pre><p>1.41× 約等於每秒輸出多 41%。固定輸出量時，僅生成階段的時間比例約為 1/1.41；這不是實測總等待時間的換算，prefill 與產出量仍會影響整體耗時。</p></section>'''
+source_cards=''
+for i,(mid,meta) in enumerate(META.items()):
+    drafts='<br>'.join(E(d['filename'])+' — '+E(d['label']) for d in meta['drafts'])
+    source_cards+=f'<article class="panel"><h3>{E(R["by_model"][i]["model"])}</h3><p><strong>主模型量化：{meta["main_quant"]}</strong></p><p class="file"><a href="{meta["url"]}">{E(meta["repository"])}</a></p><p class="file">主模型檔案：<br><code>{E(meta["main_file"])}</code></p><p class="file">草稿檔案（測試紀錄標籤）：<br>{drafts}</p></article>'
+body+='<section id="model-sources"><h2>實際使用的 Unsloth 模型</h2><p>下列來源依提供的 GGUF 檔名，對照 Unsloth 的 Hugging Face 檔案清單（2026-10-22 查核）。四個 Gemma 4 都是 it-qat 版本；Qwen 兩個模型分別使用 8-bit 與 6-bit 系列的 Dynamic 量化。保留完整 UD 標籤，不把混合精度檔案簡化成每個權重都固定為相同位元數。</p><div class="two">'+source_cards+'</div><p>Flash Next 的 UD-Q6_K_XL 為六個分片，表列第一個分片名稱；載入時需有完整檔案組。主模型來源已按檔名核對，但沒有取得本地權重 SHA-256 與下載 revision，因此不宣稱與目前上游檔案位元一致。草稿量化依本地設定標籤呈現；Gemma 無量化後綴的草稿檔與 Q8 檔，仍需檢查 GGUF metadata 才能確認實際型別。</p><p>Gemma 4 12B 未列於後來提供的服務設定，其型號與量化來自 benchmark 的 models_config.json。<a href="data/model_sources.json">下載模型來源與檔名對照</a>。</p></section>'
+body+='<section><h2>另提供的服務設定：與測試條件分開看</h2><p>以下摘要來自專案發起人另提供的服務設定，並非這 1,250 次 benchmark 的執行紀錄。它包含更長的 context 與多個並行 slot，不能直接套用本站加速百分比。為保護本機資訊，僅保留設定值與模型名稱，不公開個人路徑。</p>'+table(['模型','服務 context c','並行設定（原鍵名）','MTP N'],[['Gemma 4 E4B','131,072','parallel=4','3'],['Gemma 4 26B A4B','262,144','parallel=2','2'],['Gemma 4 31B QAT','131,072','全域 parallel=3','4'],['Qwen 3.8 27B','524,288','np=4；全域 parallel=3','4'],['Qwen 3.8 Flash Next','524,288','parallel=2','該段未設定 MTP']])+'<p>全域設定含 f16 K/V cache、continuous batching、kv-unified=true、cache-ram=16384、fit=on、fit-target=16384、fit-ctx=8192 及 mmap。Flash Next 另外設 kv-unified=false。Gemma 4 E4B 的 ubatch=512，其餘列出的測試模型多為 2048；benchmark 則統一使用 context 16384 與 batch/ubatch 2048。並行鍵名 np 與 parallel 的優先順序需依實際服務版本確認，表格不推定衝突時的有效值。</p><p>其他服務模型（Qwen 3.6、Muse、embedding 與 reranker）未參與本次測試，不列入效能結論。這份服務設定也不等同於本站建議：例如 E4B 原服務採 N3，而本次輔導題的最快觀察值為 N2。</p></section>'
+
 body+='<section><h2>七個問題，可以回答到哪裡？</h2>'+table(['問題','本次能回答的範圍'],[['1. Context','長度與題目內容混淆；window 固定，無法識別獨立主效果。'],['2. MTP','Q4 N1–4 平均提升 '+pct(R['main_mtp_q4'])+'；是本批資料的描述性平均。'],['3. Q','五模型同條件配對：Q8 相對 Q4 '+pct(R['q8_over_q4'])+'。'],['4. N','共同 Q4 設計 N3 最高，但與 N2、N4 接近。'],['5. N × 任務','N1→N4 的 Agent/輔導比值之比為 1.1767。'],['6. MoE × N','MoE/非 MoE 的 N1→N4 比值之比為 0.7573；不能歸因架構本身。'],['7. N × 任務 × 大小','可比較各模型的曲線，無法單獨識別模型大小；最佳 N 是結果衍生值。']])+'</section>'
 body+='<section><h2>MTP 與量化的模型差異</h2>'+table(['模型','Q4 MTP 平均提升','Q8 相對 Q4'],[[r['model'],pct(r['mtp_q4']),pct(r['q8_over_q4']) if 'q8_over_q4' in r else '未測'] for r in R['by_model']])+'<p>主模型固定使用的量化：Gemma 四模型為 UD-Q4_K_XL，Qwen 3.8 27B 為 UD-Q8_K_XL，Flash Next 為 UD-Q6_K_XL。它們不是主模型量化一致的對照實驗。</p></section>'
 body+='<section><h2>N × 任務的交互作用</h2><p>交互作用不只問哪類任務快，而是「提高 N 後，兩類任務的收益是否不同」。以 N1 為參考，計算 [(Agent N / Agent N1) / (輔導 N / 輔導 N1)] − 1。</p>'+table(['N','整體提升','輔導提升','Agent 提升','任務交互作用 vs N1'],[[r['n'],pct(r['all']),pct(r['counseling']),pct(r['agent']),pct(r['task_interaction_vs_n1'])] for r in effects])+'<p>五個 Q 完整模型改以 Q4/Q8 等權重：N1–4 分別提升 '+ '、'.join(pct(x['gain']) for x in R['n_complete_q_average'])+'，N2 略高於 N3。最佳整體 N 依模型組成與權重而異。</p></section>'

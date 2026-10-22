@@ -1,0 +1,100 @@
+{
+  "gemma-4-e4b": {
+    "repository": "unsloth/gemma-4-E4B-it-qat-GGUF",
+    "url": "https://huggingface.co/unsloth/gemma-4-E4B-it-qat-GGUF",
+    "main_file": "gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf",
+    "main_quant": "UD-Q4_K_XL",
+    "drafts": [
+      {
+        "label": "Q4 (94 MB)",
+        "filename": "mtp-gemma-4-E4B-it.gguf"
+      },
+      {
+        "label": "Q8_0 (94 MB)",
+        "filename": "mtp-gemma-4-E4B-it-Q8_0.gguf"
+      }
+    ],
+    "provenance": "Provided local filenames matched to Unsloth repository listing on 2026-10-22; local weight hash and downloaded revision not verified."
+  },
+  "gemma-4-12b-qat": {
+    "repository": "unsloth/gemma-4-12B-it-qat-GGUF",
+    "url": "https://huggingface.co/unsloth/gemma-4-12B-it-qat-GGUF",
+    "main_file": "gemma-4-12B-it-qat-UD-Q4_K_XL.gguf",
+    "main_quant": "UD-Q4_K_XL",
+    "drafts": [
+      {
+        "label": "Q4 (242 MB)",
+        "filename": "mtp-gemma-4-12B-it.gguf"
+      },
+      {
+        "label": "Q8_0 (444 MB)",
+        "filename": "mtp-gemma-4-12B-it-Q8_0.gguf"
+      }
+    ],
+    "provenance": "Provided local filenames matched to Unsloth repository listing on 2026-10-22; local weight hash and downloaded revision not verified."
+  },
+  "gemma-4-26b-qat": {
+    "repository": "unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+    "url": "https://huggingface.co/unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+    "main_file": "gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf",
+    "main_quant": "UD-Q4_K_XL",
+    "drafts": [
+      {
+        "label": "Q4 (240 MB)",
+        "filename": "mtp-gemma-4-26B-A4B-it.gguf"
+      },
+      {
+        "label": "Q8_0 (440 MB)",
+        "filename": "mtp-gemma-4-26B-A4B-it-Q8_0.gguf"
+      }
+    ],
+    "provenance": "Provided local filenames matched to Unsloth repository listing on 2026-10-22; local weight hash and downloaded revision not verified."
+  },
+  "gemma-4-31b-qat": {
+    "repository": "unsloth/gemma-4-31B-it-qat-GGUF",
+    "url": "https://huggingface.co/unsloth/gemma-4-31B-it-qat-GGUF",
+    "main_file": "gemma-4-31B-it-qat-UD-Q4_K_XL.gguf",
+    "main_quant": "UD-Q4_K_XL",
+    "drafts": [
+      {
+        "label": "Q4 (267 MB)",
+        "filename": "mtp-gemma-4-31B-it.gguf"
+      },
+      {
+        "label": "Q8_0 (491 MB)",
+        "filename": "mtp-gemma-4-31B-it-Q8_0.gguf"
+      }
+    ],
+    "provenance": "Provided local filenames matched to Unsloth repository listing on 2026-10-22; local weight hash and downloaded revision not verified."
+  },
+  "qwen3.8-27b": {
+    "repository": "unsloth/Qwen3.8-27B-GGUF",
+    "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF",
+    "main_file": "Qwen3.8-27B-UD-Q8_K_XL.gguf",
+    "main_quant": "UD-Q8_K_XL",
+    "drafts": [
+      {
+        "label": "Q4_0 (1.3 GB)",
+        "filename": "mtp-Qwen3.8-27B-Q4_0.gguf"
+      }
+    ],
+    "provenance": "Provided local filenames matched to Unsloth repository listing on 2026-10-22; local weight hash and downloaded revision not verified."
+  },
+  "qwen3.8-flash-next": {
+    "repository": "unsloth/Qwen3.8-Flash-Next-GGUF",
+    "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF",
+    "main_file": "Qwen3.8-Flash-Next-UD-Q6_K_XL-00001-of-00006.gguf",
+    "main_quant": "UD-Q6_K_XL",
+    "drafts": [
+      {
+        "label": "Q4_K_M (2.6 GB)",
+        "filename": "mtp-Qwen3.8-Flash-Next-Q4_K_M.gguf"
+      },
+      {
+        "label": "Q8_0 (3.9 GB)",
+        "filename": "mtp-Qwen3.8-Flash-Next-Q8_0.gguf"
+      }
+    ],
+    "provenance": "Provided local filenames matched to Unsloth repository listing on 2026-10-22; local weight hash and downloaded revision not verified."
+  }
+}
