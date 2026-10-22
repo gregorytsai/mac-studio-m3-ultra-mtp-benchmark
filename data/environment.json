@@ -8,7 +8,9 @@
     "memory_gb": 256,
     "memory_type": "Unified Memory",
     "os_name": "macOS",
-    "kernel": "Darwin 25.6.0 arm64"
+    "kernel": "Darwin 25.6.0 arm64",
+    "gpu_cores": 80,
+    "gpu_cores_source": "Confirmed by project owner on 2026-10-22"
   },
   "runtime": {
     "framework": "llama.cpp",

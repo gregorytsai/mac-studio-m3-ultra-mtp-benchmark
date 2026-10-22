@@ -8,7 +8,7 @@ OUT = ROOT / 'data'
 raw = json.loads(SOURCE.read_text(encoding='utf-8'))
 models = list(raw)
 cats = ['counseling', 'agent']
-names = dict(zip(models, ['Gemma 4 E4B','Gemma 4 12B','Gemma 4 26B A4B','Gemma 4 31B','Qwen 3.8 27B','Qwen 3.8 Flash Next']))
+names = dict(zip(models, ['Gemma 4 E4B QAT','Gemma 4 12B QAT','Gemma 4 26B A4B QAT','Gemma 4 31B QAT','Qwen 3.8 27B','Qwen 3.8 Flash Next']))
 moe = {models[2], models[5]}
 gm = lambda xs: math.exp(st.mean(math.log(x) for x in xs))
 pc = lambda x: f'{(x-1)*100:+.2f}%'

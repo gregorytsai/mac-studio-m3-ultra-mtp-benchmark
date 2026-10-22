@@ -2,7 +2,7 @@
   "models": [
     {
       "id": "gemma-4-e4b",
-      "display_name": "Gemma 4 E4B (UD-Q4_K_XL)",
+      "display_name": "Gemma 4 E4B QAT (UD-Q4_K_XL)",
       "model_path": "/path/to/models/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf",
       "mmproj_path": "/path/to/models/gemma-4-E4B-mmproj-F16.gguf",
       "ctx_size": 16384,

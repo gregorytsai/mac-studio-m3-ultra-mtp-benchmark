@@ -1,4 +1,4 @@
-# Mac Studio M3 Ultra 256GB｜MTP 實測與設定指南
+# Mac Studio M3 Ultra 256GB · 80 核心 GPU｜MTP 實測與設定指南
 
 [開啟圖文網站](https://gregorytsai.github.io/mac-studio-m3-ultra-mtp-benchmark/)
 

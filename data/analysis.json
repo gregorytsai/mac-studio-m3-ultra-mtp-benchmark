@@ -8,22 +8,22 @@
   "main_mtp_complete_q4q8": 1.3498421114258812,
   "by_model": [
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "mtp_q4": 1.3093087329713262,
       "q8_over_q4": 1.0288239169458129
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "mtp_q4": 1.5639870739194004,
       "q8_over_q4": 0.9645763098297033
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "mtp_q4": 1.2231477643774866,
       "q8_over_q4": 0.9693138207753063
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "mtp_q4": 1.5944647550065,
       "q8_over_q4": 0.9783560898118753
     },
@@ -82,7 +82,7 @@
   ],
   "best": [
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "category": "counseling",
       "best_q4": "mtp_q4_n2",
       "gain": 1.2361112394667275,
@@ -92,7 +92,7 @@
       "warm_best_q4": "mtp_q4_n2"
     },
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "category": "agent",
       "best_q4": "mtp_q4_n4",
       "gain": 1.5664473512016497,
@@ -102,7 +102,7 @@
       "warm_best_q4": "mtp_q4_n4"
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "category": "counseling",
       "best_q4": "mtp_q4_n3",
       "gain": 1.5042849323027994,
@@ -112,7 +112,7 @@
       "warm_best_q4": "mtp_q4_n3"
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "category": "agent",
       "best_q4": "mtp_q4_n4",
       "gain": 1.932392396039345,
@@ -122,7 +122,7 @@
       "warm_best_q4": "mtp_q4_n4"
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "category": "counseling",
       "best_q4": "mtp_q4_n2",
       "gain": 1.1914317784422253,
@@ -132,7 +132,7 @@
       "warm_best_q4": "mtp_q4_n2"
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "category": "agent",
       "best_q4": "mtp_q4_n2",
       "gain": 1.3945102042315722,
@@ -142,7 +142,7 @@
       "warm_best_q4": "mtp_q4_n2"
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "category": "counseling",
       "best_q4": "mtp_q4_n4",
       "gain": 1.5778910888276436,
@@ -152,7 +152,7 @@
       "warm_best_q4": "mtp_q4_n4"
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "category": "agent",
       "best_q4": "mtp_q4_n4",
       "gain": 2.048606827322293,
@@ -204,7 +204,7 @@
   ],
   "model_task_n": [
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "category": "counseling",
       "ratios": [
         1.134132561004359,
@@ -214,7 +214,7 @@
       ]
     },
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "category": "agent",
       "ratios": [
         1.2682585046986796,
@@ -224,7 +224,7 @@
       ]
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "category": "counseling",
       "ratios": [
         1.2888681894352136,
@@ -234,7 +234,7 @@
       ]
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "category": "agent",
       "ratios": [
         1.3914308642764563,
@@ -244,7 +244,7 @@
       ]
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "category": "counseling",
       "ratios": [
         1.1436660962913134,
@@ -254,7 +254,7 @@
       ]
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "category": "agent",
       "ratios": [
         1.23948512329709,
@@ -264,7 +264,7 @@
       ]
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "category": "counseling",
       "ratios": [
         1.267059975976162,
@@ -274,7 +274,7 @@
       ]
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "category": "agent",
       "ratios": [
         1.3522710304020382,
@@ -326,7 +326,7 @@
   ],
   "context": [
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "prompt": "prompt_1",
       "tokens": 366,
       "speed": 100.81320235278253,
@@ -334,7 +334,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "prompt": "prompt_2",
       "tokens": 1707,
       "speed": 100.08787712943162,
@@ -342,7 +342,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "prompt": "prompt_3",
       "tokens": 8235,
       "speed": 96.31319976951,
@@ -350,7 +350,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "prompt": "prompt_1",
       "tokens": 366,
       "speed": 64.82834690734477,
@@ -358,7 +358,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "prompt": "prompt_2",
       "tokens": 1707,
       "speed": 64.55236345562916,
@@ -366,7 +366,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "prompt": "prompt_3",
       "tokens": 8235,
       "speed": 61.84016900740916,
@@ -374,7 +374,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "prompt": "prompt_1",
       "tokens": 366,
       "speed": 118.55520752730364,
@@ -382,7 +382,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "prompt": "prompt_2",
       "tokens": 1707,
       "speed": 117.8355551133611,
@@ -390,7 +390,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "prompt": "prompt_3",
       "tokens": 8235,
       "speed": 111.60651818817195,
@@ -398,7 +398,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "prompt": "prompt_1",
       "tokens": 366,
       "speed": 31.287905892214116,
@@ -406,7 +406,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "prompt": "prompt_2",
       "tokens": 1707,
       "speed": 30.96041387009026,
@@ -414,7 +414,7 @@
       "cached": 0
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "prompt": "prompt_3",
       "tokens": 8235,
       "speed": 29.574143400338183,
@@ -472,7 +472,7 @@
   ],
   "threeway_descriptive": [
     {
-      "model": "Gemma 4 E4B",
+      "model": "Gemma 4 E4B QAT",
       "interaction_n_vs_1": [
         1.0,
         1.0917201400788976,
@@ -481,7 +481,7 @@
       ]
     },
     {
-      "model": "Gemma 4 12B",
+      "model": "Gemma 4 12B QAT",
       "interaction_n_vs_1": [
         1.0,
         1.092846943926402,
@@ -490,7 +490,7 @@
       ]
     },
     {
-      "model": "Gemma 4 26B A4B",
+      "model": "Gemma 4 26B A4B QAT",
       "interaction_n_vs_1": [
         1.0,
         1.0799669002344479,
@@ -499,7 +499,7 @@
       ]
     },
     {
-      "model": "Gemma 4 31B",
+      "model": "Gemma 4 31B QAT",
       "interaction_n_vs_1": [
         1.0,
         1.0613530943557852,
