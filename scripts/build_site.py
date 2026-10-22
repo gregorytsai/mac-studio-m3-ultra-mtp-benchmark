@@ -7,6 +7,7 @@ RAW=json.loads((ROOT/'data/benchmark_metrics.json').read_text(encoding='utf-8'))
 META=json.loads((ROOT/'data/model_sources.json').read_text(encoding='utf-8'))
 E=html.escape
 repo='https://github.com/gregorytsai/mac-studio-m3-ultra-mtp-benchmark'
+SITE='https://gregorytsai.github.io/mac-studio-m3-ultra-mtp-benchmark/'
 pct=lambda x:f'{(x-1)*100:+.1f}%'
 def table(headers,rows):
  return '<div class="table-wrap"><table><thead><tr>'+''.join(f'<th>{E(str(h))}</th>' for h in headers)+'</tr></thead><tbody>'+''.join('<tr>'+''.join(f'<td>{v}</td>' for v in row)+'</tr>' for row in rows)+'</tbody></table></div>'
@@ -26,8 +27,9 @@ def chart(series,title,max_y=80):
  parts.append('</svg><div class="legend">'+''.join(f'<span>{E(s[0])}</span>' for s in series)+'</div>')
  return ''.join(parts)
 def page(file,title,body,extra=''):
+ canonical=SITE+('' if file=='index.html' else file)
  nav=''.join(f'<a href="{p}"'+(' aria-current="page"' if file==p else '')+f'>{t}</a>' for p,t in [('index.html','設定指南'),('analysis.html','技術與分析'),('resources.html','資料與程式碼')])
- text=f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{E(title)}｜Mac Studio MTP 實測</title><meta name="description" content="Mac Studio M3 Ultra 256GB · 80 核心 GPU MTP 實測：用圖表比較六個模型與 N=1–4，找出適合文字與 Agent 題目的設定。"><link rel="stylesheet" href="assets/style.css"></head><body><a class="skip" href="#main">跳到主要內容</a><header><nav aria-label="主要導覽"><a class="brand" href="index.html">MTP / FIELD NOTES</a><div class="links">{nav}<a href="{repo}">GitHub ↗</a></div></nav></header><main id="main">{body}</main><footer>Mac Studio M3 Ultra · 256GB · 80 核心 GPU · 單機效能紀錄<br>共同作者：gregorytsai · OpenAI Codex · Gemini 3.8 Flash<br>分析整理：2026-10-22。速度結果不代表內容品質；以自己的工作負載驗證設定。<br>聯絡信箱：<a href="mailto:gregorytsai@gmail.com">gregorytsai@gmail.com</a></footer>{extra}</body></html>'''
+ text=f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{E(title)}｜Mac Studio MTP 實測</title><meta name="description" content="Mac Studio M3 Ultra 256GB · 80 核心 GPU MTP 實測：用圖表比較六個模型與 N=1–4，找出適合文字與 Agent 題目的設定。"><link rel="canonical" href="{canonical}"><link rel="sitemap" type="application/xml" href="sitemap.xml"><link rel="stylesheet" href="assets/style.css"></head><body><a class="skip" href="#main">跳到主要內容</a><header><nav aria-label="主要導覽"><a class="brand" href="index.html">MTP / FIELD NOTES</a><div class="links">{nav}<a href="{repo}">GitHub ↗</a></div></nav></header><main id="main">{body}</main><footer>Mac Studio M3 Ultra · 256GB · 80 核心 GPU · 單機效能紀錄<br>共同作者：gregorytsai · OpenAI Codex · Gemini 3.8 Flash<br>分析整理：2026-10-22。速度結果不代表內容品質；以自己的工作負載驗證設定。<br>聯絡信箱：<a href="mailto:gregorytsai@gmail.com">gregorytsai@gmail.com</a> · <a href="sitemap.xml">網站地圖</a></footer>{extra}</body></html>'''
  for asset in ['style.css','chart-data.js','explore.js']:
   asset_path=ROOT/'assets'/asset
   if asset_path.exists():
@@ -142,3 +144,5 @@ export BENCH_OUTPUT=/path/to/new-results
 python scripts/run_benchmark.py</code></pre><p class="small">每批測試使用新的輸出目錄，以免舊版 runner 的續跑判定混用不同題目或環境。完整模型測試會使用本機運算與記憶體資源。</p></div></section><section class="prose"><h2>哪些內容沒有公開？</h2><p>原始五題的實際 prompt 均未上傳，範例 1–3 的學生與晤談內容也未納入。所有模型輸出、推理文字、執行 log、舊報告自由文字及個人檔案路徑均不在公開範圍。公開 JSON 是從允許欄位重新產生，不是把原檔改名。</p><p>這保留了效能數值分析的可重算性，但不具備原始工作負載的完整可重現性。公開合成題目僅示範程式格式，沒有被用來產生本站結果。</p><h2>共同作者</h2><p>gregorytsai、OpenAI Codex、Gemini 3.8 Flash。</p><p>依專案發起人指定共同署名。AI 名稱標示參與工具，本站結果仍應以公開數值與分析方法核對。</p><h2>程式來源與修改</h2><p><code>run_benchmark.py</code> 改編自提供的原測試程式，將本機路徑改為環境變數、改用合成題目、將新結果寫到獨立目錄，並移除寫死的硬體與版本宣告。分析與靜態頁面產生器為本次整理新增。</p><p>未在本次整理時重跑 Mac 的模型推論。已做的檢查包含 Python 語法、公開數值一致性、分析重算、連結及網頁顯示；這些不能取代實機效能驗證。</p><h2>檔案完整性</h2><p><a href="data/manifest.json">公開檔案 SHA-256 清單</a>可用於核對下載內容。<a href="data/validation.json">驗證摘要</a>記錄公開資料與頁面的靜態檢查。</p><a class="button" href="{repo}">前往 GitHub 儲存庫 ↗</a></section>'''
 page('resources.html','資料與程式碼',body)
 print('Built index.html, analysis.html, resources.html and chart-data.js')
+
+(ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('  <url><loc>'+SITE+path+'</loc></url>\n' for path in ['', 'analysis.html', 'resources.html'])+'</urlset>\n',encoding='utf-8')
