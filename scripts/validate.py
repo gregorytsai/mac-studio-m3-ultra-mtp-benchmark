@@ -1,5 +1,5 @@
 """Validate public schema, recomputed counts, links and source syntax."""
-import ast, json, math, hashlib
+import ast, json, math, hashlib, re
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
@@ -28,9 +28,30 @@ class Links(HTMLParser):
     path=unquote(urlsplit(value).path)
     assert (ROOT/path).exists(),path
 for p in ROOT.glob('*.html'):Links().feed(p.read_text(encoding='utf-8'))
+class BilingualPage(HTMLParser):
+ def __init__(self):
+  super().__init__(); self.ids=[]; self.geometry=[]; self.canonical=[]; self.alternates={}; self.lang=None; self.text=[]
+ def handle_starttag(self,tag,attrs):
+  a=dict(attrs)
+  if tag=='html':self.lang=a.get('lang')
+  if 'id' in a:self.ids.append(a['id'])
+  if tag in ['svg','circle','polyline','line']:self.geometry.append((tag,{k:v for k,v in a.items() if k not in ['aria-label']}))
+  if tag=='link' and a.get('rel')=='canonical':self.canonical.append(a['href'])
+  if tag=='link' and a.get('rel')=='alternate':self.alternates[a['hreflang']]=a['href']
+ def handle_data(self,data):self.text.append(data)
+for name in ['index','analysis','resources']:
+ zh,en=BilingualPage(),BilingualPage()
+ zh.feed((ROOT/(name+'.html')).read_text(encoding='utf-8'))
+ en.feed((ROOT/(name+'-en.html')).read_text(encoding='utf-8'))
+ assert (zh.lang,en.lang)==('zh-Hant','en')
+ assert zh.ids==en.ids and zh.geometry==en.geometry,'Bilingual chart/anchor mismatch'
+ assert zh.alternates==en.alternates and set(en.alternates)=={'zh-Hant','en','x-default'}
+ assert len(en.canonical)==1 and en.canonical[0]==en.alternates['en']
+ assert not re.search(r'[\u3400-\u9fff]',''.join(en.text).replace('繁體中文','')),'Untranslated English content'
+assert (ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<loc>')==6
 assert not (ROOT/'prompts.json').exists()
 assert not (ROOT/'prompts_output').exists()
-report={'numeric_runs':count,'schema':'PASS: numeric run fields only; no original prompt titles or content','python_syntax':'PASS','local_page_links':'PASS','inference_rerun':False,'scope':'Static validation, not a live model benchmark.'}
+report={'numeric_runs':count,'schema':'PASS: numeric run fields only; no original prompt titles or content','python_syntax':'PASS','local_page_links':'PASS','bilingual_pages':'PASS: language, canonical, reciprocal hreflang, chart geometry, anchors and translation completeness','inference_rerun':False,'scope':'Static validation, not a live model benchmark.'}
 (ROOT/'data/validation.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
 # GitHub stores UTF-8/LF text; normalize Windows CRLF before hashing.
 files={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_text(encoding='utf-8').encode('utf-8')).hexdigest() for p in sorted(ROOT.rglob('*')) if p.is_file() and '.git' not in p.parts and '__pycache__' not in p.parts and p.name!='manifest.json'}

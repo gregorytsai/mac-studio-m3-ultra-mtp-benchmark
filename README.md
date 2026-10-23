@@ -2,6 +2,8 @@
 
 [開啟圖文網站](https://gregorytsai.github.io/mac-studio-m3-ultra-mtp-benchmark/)
 
+[English website](https://gregorytsai.github.io/mac-studio-m3-ultra-mtp-benchmark/index-en.html) — full setup guide, interactive charts, methods, and data/code pages. Use the language switch in the navigation to move between equivalent pages.
+
 六模型、五道題目、1,250 次執行的本機生成速度分析。主頁提供設定速查與互動比較；技術頁保留方法、來源差異與限制。
 
 ## 本次值得追蹤的觀察
@@ -15,6 +17,8 @@
 - `index.html`：淺顯圖解與模型／任務設定參考。
 - `analysis.html`：七項效果、統計方法、執行條件與限制。
 - `resources.html`：數值下載、程式與資料公開範圍。
+
+英文對應頁為 `index-en.html`、`analysis-en.html`、`resources-en.html`。中英文共用數值資料；`build_site.py` 會呼叫 `build_english.py`，使用經校閱的 `translations.en.json` 產生英文頁面。新增尚未翻譯的中文內容會讓建置停止，避免漏譯。
 
 ## 重算分析與頁面
 

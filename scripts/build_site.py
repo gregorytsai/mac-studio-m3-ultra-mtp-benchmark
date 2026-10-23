@@ -146,3 +146,8 @@ page('resources.html','資料與程式碼',body)
 print('Built index.html, analysis.html, resources.html and chart-data.js')
 
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('  <url><loc>'+SITE+path+'</loc></url>\n' for path in ['', 'analysis.html', 'resources.html'])+'</urlset>\n',encoding='utf-8')
+
+import sys
+sys.dont_write_bytecode = True
+from build_english import build_english
+build_english()
