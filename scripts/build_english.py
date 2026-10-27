@@ -23,6 +23,7 @@ class Translator(HTMLParser):
     def __init__(self, translations, name):
         super().__init__(convert_charrefs=False)
         self.translations, self.name, self.parts = translations, name, []
+        self.verbatim_tag = None
 
     def translate(self, value):
         if CJK.search(value):
@@ -33,6 +34,9 @@ class Translator(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
+        if values.get('translate') == 'no':
+            assert tag == 'pre' and values.get('data-prompt-id') in ('prompt_4', 'prompt_5')
+            self.verbatim_tag = tag
         for key, value in attrs:
             if value is None:
                 continue
@@ -58,8 +62,13 @@ class Translator(HTMLParser):
 
     def handle_endtag(self, tag):
         self.parts.append('</' + tag + '>')
+        if tag == self.verbatim_tag:
+            self.verbatim_tag = None
 
     def handle_data(self, data):
+        if self.verbatim_tag:
+            self.parts.append(data)
+            return
         translated = html.escape(self.translate(data), quote=False) if CJK.search(data) else data
         for original, replacement in [('、', ', '), ('。', '.'), ('／', '/'), ('（', '('), ('）', ')')]:
             translated = translated.replace(original, replacement)

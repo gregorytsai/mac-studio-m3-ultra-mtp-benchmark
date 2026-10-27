@@ -1,0 +1,16 @@
+{
+  "prompt_4": {
+    "title": "Python 非同步批次資料處理與重試佇列系統",
+    "category": "agent",
+    "category_name": "Agent工作",
+    "description": "原測試使用的 Agent prompt；僅測量生成效能，未評分內容品質。",
+    "content": "請用 Python 撰寫一個高效、健全的生產級非同步批次資料處理與重試佇列系統（AsyncBatchProcessor），需求包含：\n1. 核心類別設計：實現並發控制（使用 asyncio.Semaphore 限制同時連線數）與批次聚合（達到 Batch Size 或超過等待秒數自動刷新）。\n2. 錯誤恢復機制：具備指數退避重試（Exponential Backoff with Full Jitter），支持針對暫時性網路錯誤（如 429、503）重試，致命錯誤直接記錄進死信佇列（Dead Letter Queue）。\n3. 速率限制（Rate Limiting）：實作滑動窗口（Sliding Window Rate Limiter），確保每秒請求數不超過上限。\n4. 健全性要求：需包含完整 Type Hints（typing / dataclasses）、詳細 Google Style Docstrings、以及優雅關閉（Graceful Shutdown）信號處理。\n5. 測試模擬範例：請在 __main__ 區塊提供可完整獨立運行的模擬範例，使用 aiohttp 或模擬的非同步 worker 生成隨機失敗與重試，並印出最終成功率、重試次數與處理吞吐量（items/sec）統計。"
+  },
+  "prompt_5": {
+    "title": "Linux 伺服器故障診斷與排錯終端模擬",
+    "category": "agent",
+    "category_name": "Agent工作",
+    "description": "原測試使用的 Agent prompt；僅測量生成效能，未評分內容品質。",
+    "content": "你現在扮演一個具備資深 Linux SRE 與系統架構經驗的自主排錯代理（Autonomous Troubleshooting Agent）。請模擬在終端機（Terminal）中診斷並修復伺服器異常的完整互動流程。\n\n【重要安全性聲明】：本任務為「終端交互情境模擬」，請僅產生分析思維、模擬下達的 shell 指令以及預期的終端機回傳內容，絕對不要在真實本機環境執行任何可能破壞系統的指令。\n\n【情境描述】：\n在某台生產環境 Ubuntu 24.04 伺服器上，核心資料管線服務 `data-pipeline.service` 突然啟動失敗（CrashLoopBackOff），同時監控警報顯示：本機 5432 埠無法連線 PostgreSQL、磁碟根目錄空間告警（使用率 99%）。\n\n請依照資深工程師的專業除錯邏輯，依序呈現下列四個階段的思維與終端模擬（每個指令都要附帶模擬的終端機回傳輸出）：\n1. 階段一：現況盤點與故障診斷（模擬執行 systemctl status、journalctl -u、df -h、du -sh、lsof/netstat 等命令檢視現況）。\n2. 階段二：根本原因分析（RCA，根據日誌中發現的磁碟空間耗盡導致 WAL 無法寫入、舊日誌爆滿等因素進行定位）。\n3. 階段三：逐步安全排錯與修復（模擬日誌安全輪替清理 journalctl --vacuum-time、修復 PostgreSQL 鎖定與 WAL 檔、修正 pipeline 連線設定檔、重新載入與啟動 systemd 服務）。\n4. 階段四：服務恢復驗證與長效預防機制（驗證 systemctl is-active、curl 健康檢查端點、端口監聽狀態，並給出 logrotate 與警報閾值設定建議）。"
+  }
+}

@@ -1,4 +1,6 @@
-# Mac Studio M3 Ultra 256GB · 80 核心 GPU｜MTP 實測與設定指南
+# 地端模型MTP實測與建議
+
+Mac Studio M3 Ultra 256GB · 80 GPU
 
 [開啟圖文網站](https://gregorytsai.github.io/mac-studio-m3-ultra-mtp-benchmark/)
 
@@ -41,7 +43,7 @@ python -m http.server 8765
 
 ## 隱私與可重現性
 
-原始 prompt（包含範例 1–3）、模型回答、推理內容及 log 均不公開。效能 JSON 從白名單欄位重建，題目只保留通用題號與任務分類；個人路徑已移除。`prompts.synthetic.json` 全部是新寫的合成示例，未用於產生本網站數據，也無法重現原始文字工作負載。
+第 1–3 題只公開任務摘要，實際 prompt 與個案內容保持私密。第 4、5 題原始 Agent prompt 已公開於 `data/prompts.agent.json`，可供 runner 載入；中英文資料頁皆保留原始中文輸入。模型回答、推理內容及 log 均不公開。效能 JSON 從白名單欄位重建，題目只保留通用題號與任務分類；個人路徑已移除。`prompts.synthetic.json` 全部是新寫的合成示例，未用於產生本網站數據，也無法重現原始文字工作負載。
 
 公開數值可以重算統計結果。5 次執行是技術重複，不是 5 道獨立題目；沒有將 1,250 筆當作獨立樣本做顯著性檢定。最佳設定只適用本次觀察，需用自己的題目與品質要求確認。
 
@@ -52,3 +54,5 @@ GitHub Pages 使用 `main` 分支根目錄，無建置框架、外部字型或�
 ## 共同作者
 
 gregorytsai、OpenAI Codex、Gemini 3.8 Flash。依專案發起人指定共同署名；AI 名稱標示參與工具。
+
+五題摘要見 `data/prompt_catalog.json` 與網站「實測用了哪些題目？」。兩題 Agent 原文已與私有來源逐字核對；頁面的任務摘要不是原始 prompt，也不是品質評分結果。

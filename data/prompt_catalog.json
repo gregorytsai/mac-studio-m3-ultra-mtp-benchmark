@@ -1,0 +1,47 @@
+[
+  {
+    "id": "prompt_1",
+    "title": "晤談方向與策略建議",
+    "summary": "根據一段親密關係相關的諮商情境，請模型整理值得進一步理解的議題，並提出後續晤談的方向與策略。只說明任務，不公開個案背景或晤談原文。",
+    "category": "counseling",
+    "disclosure": "summary_only",
+    "title_en": "Directions and strategies for a follow-up session",
+    "summary_en": "Given a counseling scenario involving an intimate relationship, identify issues to explore further and suggest directions and strategies for a follow-up session. Only the task is described; case details and session text remain private."
+  },
+  {
+    "id": "prompt_2",
+    "title": "撰寫輔導回信",
+    "summary": "根據來信撰寫自然、具同理心的輔導回覆，包含情緒回應、心理衛教、DBT 技巧與資源轉介，並遵守不使用條列、只輸出信件本體的格式要求。",
+    "category": "counseling",
+    "disclosure": "summary_only",
+    "title_en": "Writing a counseling reply",
+    "summary_en": "Write a natural, empathetic reply to a message, incorporating emotional support, psychoeducation, DBT skills, and resource referrals. Follow the requested prose format: no bullet points and only the letter itself."
+  },
+  {
+    "id": "prompt_3",
+    "title": "長篇諮商紀錄的結案整理",
+    "summary": "閱讀多次晤談的長篇紀錄，整理成簡要結案摘要，涵蓋主訴、初步評估、輔導處遇、工作同盟、後續需求，以及家庭與社會支持。",
+    "category": "counseling",
+    "disclosure": "summary_only",
+    "title_en": "Summarizing lengthy counseling records at closure",
+    "summary_en": "Read lengthy records spanning multiple sessions and produce a concise closing summary covering presenting concerns, initial assessment, interventions, therapeutic alliance, future needs, and family and social support."
+  },
+  {
+    "id": "prompt_4",
+    "title": "Python 非同步批次處理與重試系統",
+    "summary": "撰寫 AsyncBatchProcessor，整合並發控制、批次聚合、重試、限流、型別註記與優雅關閉，並提供可獨立執行的模擬範例及統計。",
+    "category": "agent",
+    "disclosure": "full_prompt",
+    "title_en": "Python asynchronous batch processing and retries",
+    "summary_en": "Implement AsyncBatchProcessor with concurrency control, batching, retries, rate limiting, type annotations, and graceful shutdown, plus a standalone simulation and summary statistics."
+  },
+  {
+    "id": "prompt_5",
+    "title": "Linux 伺服器排錯的終端模擬",
+    "summary": "針對服務啟動失敗、資料庫無法連線與磁碟容量不足的情境，產生分階段的診斷、原因分析、修復與驗證流程，以及模擬指令與輸出。題目不要求實際操作伺服器。",
+    "category": "agent",
+    "disclosure": "full_prompt",
+    "title_en": "Simulating Linux server troubleshooting",
+    "summary_en": "For a scenario involving a failed service, an unreachable database, and a full disk, generate staged diagnosis, root-cause analysis, repair, and verification steps with simulated commands and output. The task does not require operating a real server."
+  }
+]

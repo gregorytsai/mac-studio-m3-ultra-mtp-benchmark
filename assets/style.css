@@ -11,3 +11,7 @@
 
 /* English typography: keep long labels readable without squeezing charts. */
 :lang(en) .recommend strong{font-size:22px}:lang(en) .meter span{min-width:105px;line-height:1.4}:lang(en) .model-card .setting{flex-wrap:wrap}:lang(en) .task-switch button{line-height:1.4}:lang(en) .legend{column-gap:18px}:lang(en) .hero-figure .big{font-size:52px}.language-switch{font-weight:700;border:1px solid var(--line);border-radius:5px;padding:0 8px}nav .links{align-items:center}@media(max-width:520px){:lang(en) .task-switch button{padding:9px 12px}:lang(en) .meter{gap:9px}:lang(en) .meter span{min-width:92px}}
+
+.hardware-subtitle{display:inline-block;font-size:.56em;line-height:1.5;letter-spacing:-.01em;font-weight:600;color:var(--muted);margin-top:14px}.prompt-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.prompt-grid h3{margin:14px 0 10px}.prompt-grid p{margin-bottom:0}.original-prompt{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;max-height:560px;overflow:auto}.prompt-grid .panel{min-width:0}@media(max-width:800px){.prompt-grid{grid-template-columns:1fr}}
+:lang(zh-Hant) .hero h1{font-size:clamp(28px,3.3vw,44px)}.prompt-grid{align-items:start}.task-overview .section-head{display:block}.task-overview .section-head p{max-width:900px}
+.two>.panel{min-width:0}.panel p{overflow-wrap:anywhere}

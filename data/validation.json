@@ -1,9 +1,10 @@
 {
   "numeric_runs": 1250,
-  "schema": "PASS: numeric run fields only; no original prompt titles or content",
+  "schema": "PASS: numeric run fields only; no original prompt titles or content in performance data",
+  "public_prompts": "PASS: five task summaries; only prompts 4 and 5 include original content; Chinese and English rendering matches the prompt JSON",
   "python_syntax": "PASS",
   "local_page_links": "PASS",
-  "bilingual_pages": "PASS: language, canonical, reciprocal hreflang, chart geometry, anchors and translation completeness",
+  "bilingual_pages": "PASS: language, canonical, reciprocal hreflang, chart geometry, anchors and translation completeness outside explicitly labeled original prompts",
   "inference_rerun": false,
   "scope": "Static validation, not a live model benchmark."
 }
